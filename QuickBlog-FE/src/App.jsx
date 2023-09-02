@@ -1,8 +1,18 @@
+// import React from 'react'
+
+import { Route, Routes } from "react-router";
+import LoginPage from "./components/LoginPage";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <>
+      <main>
+        <Routes>
+          <Route path="/login" element={<LoginPage />}/>
+        </Routes>
+      </main>
+    </>
+  );
+};
 
-export default App
+export default App;
