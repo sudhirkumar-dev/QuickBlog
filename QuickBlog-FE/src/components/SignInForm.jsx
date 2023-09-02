@@ -1,4 +1,6 @@
 import React from "react";
+import {FaFacebook,FaGoogle,FaLinkedin} from 'react-icons/fa';
+
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
@@ -32,13 +34,13 @@ function SignInForm() {
         <h1>Sign in</h1>
         <div className="social-container">
           <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
+          <FaFacebook />
           </a>
           <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
+           <FaGoogle />
           </a>
           <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
+            <FaLinkedin />
           </a>
         </div>
         <span>or use your account</span>

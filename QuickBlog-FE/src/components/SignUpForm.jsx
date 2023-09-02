@@ -1,6 +1,8 @@
-import React from "react";
+import { useState } from "react";
+import {FaFacebook,FaGoogle,FaLinkedin} from 'react-icons/fa';
+
 function SignUpForm() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     name: "",
     email: "",
     password: ""
@@ -35,13 +37,13 @@ function SignUpForm() {
         <h1>Create Account</h1>
         <div className="social-container">
           <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
+          <FaFacebook />
           </a>
           <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
+           <FaGoogle />
           </a>
           <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
+            <FaLinkedin />
           </a>
         </div>
         <span>or use your email for registration</span>
