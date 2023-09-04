@@ -8,7 +8,7 @@ import Layout from "./Layout";
 const App = () => {
   return (
     <>
-      <main>
+      <main className="main-container">
         <Routes>
           <Route path="/" element={<Layout/>}>
             <Route index element={<AllPosts/>}/>
