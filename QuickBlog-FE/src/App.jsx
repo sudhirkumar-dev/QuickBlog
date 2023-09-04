@@ -2,15 +2,18 @@
 
 import { Route, Routes } from "react-router";
 import LoginPage from "./components/LoginPage";
-import AllPosts from "./components/AllPosts";
+import AllPosts from "./Pages/AllPosts";
+import Layout from "./Layout";
 
 const App = () => {
   return (
     <>
       <main>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<AllPosts />} />
+          <Route path="/" element={<Layout/>}>
+            <Route index element={<AllPosts/>}/>
+            <Route path="/login" element={<LoginPage />}/>
+          </Route>
         </Routes>
       </main>
     </>
