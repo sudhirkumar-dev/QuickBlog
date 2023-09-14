@@ -1,22 +1,17 @@
-// import React from 'react'
-
-import { Route, Routes } from "react-router";
-import LoginPage from "./components/LoginPage";
-import AllPosts from "./Pages/AllPosts";
-import Layout from "./Layout";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
-    <>
-      <main className="main-container">
-        <Routes>
-          <Route path="/" element={<Layout/>}>
-            <Route index element={<AllPosts/>}/>
-            <Route path="/login" element={<LoginPage />}/>
-          </Route>
-        </Routes>
-      </main>
-    </>
+    <div>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 };
 
