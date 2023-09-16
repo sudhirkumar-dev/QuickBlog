@@ -1,5 +1,17 @@
+import HomePosts from "../components/HomePosts";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <Navbar />
+      <div className="px-8 md:px-[200px]">
+        <HomePosts />
+      </div>
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
