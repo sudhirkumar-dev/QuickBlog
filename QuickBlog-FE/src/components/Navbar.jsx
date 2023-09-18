@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { FaBars } from "react-icons/fa";
+import React, { useState } from "react";
+import Menu from "./Menu";
 
 const Navbar = () => {
-  let user = null;
+  const [showMenu, setShowMenu] = useState(false);
+
+  let user = true;
   return (
     <div className="flex items-center justify-between px-6 md:px-[200px] py-4">
       <h1 className="text-lg md:text-xl font-extrabold text-red-500">
@@ -18,7 +23,7 @@ const Navbar = () => {
           className="outline-none px-3"
         />
       </div>
-      <div className="flex items-center justify-center space-x-2 md:space-x-4">
+      <div className="hidden md:flex items-center justify-center space-x-2 md:space-x-4">
         {user ? (
           <h3 className="hover:text-red-500">
             <Link to="/write">Create a Post</Link>
@@ -29,12 +34,27 @@ const Navbar = () => {
           </h3>
         )}
         {user ? (
-          <h3 className="hover:text-red-500">Profile</h3>
+          <React.Fragment>
+            {" "}
+            <p
+              className="cursor-pointer hover:text-red-500"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              <FaBars />
+            </p>
+            {showMenu && <Menu />}
+          </React.Fragment>
         ) : (
           <h3 className="hover:text-red-500">
             <Link to="/register">Register</Link>
           </h3>
         )}
+      </div>
+      <div className="md:hidden text-lg" onClick={() => setShowMenu(!showMenu)}>
+        <p className="cursor-pointer">
+          <FaBars />
+        </p>
+        {showMenu && <Menu />}
       </div>
     </div>
   );

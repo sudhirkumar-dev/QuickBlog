@@ -11,10 +11,10 @@ const Comment = () => {
           <p className="text-gray-500 text-sm">date</p>
           <p className="text-gray-500 text-sm">time</p>
           <div className="flex items-center justify-center space-x-2">
-            <p className="">
+            <p className="hover:text-red-500">
               <BiEdit />
             </p>
-            <p>
+            <p className="hover:text-red-500">
               <MdDelete />
             </p>
           </div>

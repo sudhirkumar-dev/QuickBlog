@@ -34,9 +34,9 @@ app.listen(port, () => {
   console.log(`app is running on port ${port}`);
 });
 
-process.on('SIGINT', () => {
-  console.log('Shutting down gracefully');
-  server.close(() => {
+process.on("SIGINT", () => {
+  console.log("Shutting down gracefully");
+  app.close(() => {
     process.exit(0);
   });
 });
