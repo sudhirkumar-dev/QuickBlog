@@ -1,8 +1,13 @@
 // import React from 'react'
-
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <>
       <div className="flex items-center justify-between px-6 md:px-[200px] py-4">
@@ -23,11 +28,21 @@ const Login = () => {
             className="w-full px-4 py-2 border-2 border-black outline-0"
             placeholder="Enter Your Email"
           />
-          <input
-            type="password"
-            className="w-full px-4 py-2 border-2 border-black outline-0"
-            placeholder="Enter Your Password"
-          />
+          <div className="relative w-full">
+            {" "}
+            <input
+              type={showPassword ? "text" : "password"}
+              className="w-full px-4 py-2 border-2 border-black outline-0"
+              placeholder="Enter Your Password"
+            />
+            <span
+              className="absolute right-4 top-4 cursor-pointer"
+              onClick={togglePassword}
+            >
+              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </span>
+          </div>
+
           <button className="w-full px-4 py-4 text-lg font-bold text-white bg-black rounded-lg hover:bg-gray-500 hover:text-black">
             Login
           </button>

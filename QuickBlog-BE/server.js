@@ -2,7 +2,12 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const dotenv = require("dotenv").config();
 const app = express();
+const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth.js");
+const userRoute = require("./routes/users.js");
+const postRoute = require("./routes/posts.js");
+const commentRoute = require("./routes/comments.js");
+
 let port = process.env.PORT;
 
 //database connection
@@ -17,10 +22,21 @@ const connectDB = async () => {
 
 // middleware
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/comments", commentRoute);
 
 // port listening
 app.listen(port, () => {
   connectDB();
   console.log(`app is running on port ${port}`);
+});
+
+process.on('SIGINT', () => {
+  console.log('Shutting down gracefully');
+  server.close(() => {
+    process.exit(0);
+  });
 });
