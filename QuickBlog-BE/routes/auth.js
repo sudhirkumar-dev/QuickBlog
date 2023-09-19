@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 //register
 
 router.post("/register", async (req, res) => {
-  try {  
+  try {
     const { username, email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hashSync(password, salt);
@@ -56,6 +56,17 @@ router.get("/logout", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+//refetch user
+router.get("/refetch", (req, res) => {
+  const token = req.cookies.token;
+  jwt.verify(token, process.env.SECRET, {}, async (err, data) => {
+    if (err) {
+      return res.status(404).json(err);
+    }
+    res.status(200).json(data);
+  });
 });
 
 module.exports = router;

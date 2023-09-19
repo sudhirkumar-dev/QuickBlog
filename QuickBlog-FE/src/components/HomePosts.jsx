@@ -1,23 +1,30 @@
-const HomePosts = () => {
+/* eslint-disable react/prop-types */
+const HomePosts = ({ post }) => {
   return (
     <div className="w-full flex mt-8 space-x-4">
       {/*left*/}
       <div className="w-[35%] h-[200px] flex justify-center items-center">
-        <img src="" alt="" className="h-full w-full object-cover" />
+        <img
+          src={post.photo}
+          alt="No Photo"
+          className="h-full w-full object-cover"
+        />
       </div>
       {/*right*/}
       <div className="flex flex-col w-[65%]">
         <h1 className="text-xl font-bold md:mb-2 mb-1 md:text-2xl">
-          Uses Of aI
+          {post?.title}
         </h1>
         <div className="flex mb-2 text-sm font-semibold text-gray-500 items-center justify-between space-x-4 md:mb-4">
-          <p>@sudhirWeb dev</p>
+          <p>{post?.username}</p>
           <div className="flex space-x-2">
-            <p>16/6/2023</p>
-            <p>16:45</p>
+            <p>{new Date(post.updatedAt).toString().slice(0, 15)}</p>
+            <p>{new Date(post.updatedAt).toString().slice(16, 24)}</p>
           </div>
         </div>
-        <p className="text-sm md:text-lg">description</p>
+        <p className="text-sm md:text-lg">
+          {post?.description.slice(0, 200) + "...Read More"}
+        </p>
       </div>
     </div>
   );
