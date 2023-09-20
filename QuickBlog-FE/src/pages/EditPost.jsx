@@ -104,7 +104,7 @@ const EditPost = () => {
             type="file"
             placeholder="enter you're post title"
             onChange={(e) => setFile(e.target.files[0])}
-            value={file}
+            // value={file}
           />
           <div className="flex flex-col">
             <div className="flex items-center space-x-4 md:space-x-8">
