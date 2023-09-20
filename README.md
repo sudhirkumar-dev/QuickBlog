@@ -14,4 +14,4 @@ cd QuickBlog-FE
 npm install
 npm run dev 
 
-QuickBlog is created using PERN stack used vite js for it's lightweight modules 
+QuickBlog is created using MERN stack used vite js for it's lightweight modules 
