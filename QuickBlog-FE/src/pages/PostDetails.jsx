@@ -14,12 +14,12 @@ import { Loader } from "../components/Loader";
 
 const PostDetails = () => {
   const postId = useParams().id;
-
+  console.log("postId", postId);
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const [comments, setComments] = useState([]);
+  const [comment, setComment] = useState("");
   const { user } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   const fetchPostDetails = async () => {
@@ -47,9 +47,53 @@ const PostDetails = () => {
     }
   };
 
+  const fetchComments = async () => {
+    try {
+      const res = await axios.get(URL + "/api/comments/post/" + postId);
+      setComments(res?.data);
+      console.log(res?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteComment = (commentId) => {
+    setComments((prevComments)=>prevComments?.filter((comment)=>comment._id !== commentId))
+  }
+
+  useEffect(() => {
+    fetchComments();
+  }, [postId]);
+
+  const postComment = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(
+        URL + "/api/comments/create/",
+        {
+          comment: comment,
+          author: user.username,
+          postId: postId,
+          userId: user._id,
+        },
+        { withCredentials: true }
+      );
+      setComment("");
+      fetchComments();
+      // window.location.reload(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchPostDetails();
   }, [postId]);
+
+  useEffect(() => {
+    console.log("Updated Comments", comments);
+  }, [comments]);
+
   return (
     <div>
       <Navbar />
@@ -95,18 +139,23 @@ const PostDetails = () => {
           </div>
           <div className="flex flex-col mt-4">
             <h3 className="mt-6 mb-4 font-semibold">Comments:</h3>
-            {/*Comment*/}
-            <Comment />
-            <Comment />
+            {comments?.map((comment) => (
+              <Comment key={comment._id} comment={comment} post={post} onDeleteComment={handleDeleteComment} />
+            ))}
           </div>
           {/* write a comment */}
           <div className="w-full flex flex-col mt-4 md:flex-row">
             <input
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
               type="text"
               placeholder="Write a comment"
               className="md:w-[80%] outline-none px-4 mt-4 md:mt-0"
             />
-            <button className="bg-black text-sm text-white px-4 py-2 md:w-[30%] mt-4 md:mt-0">
+            <button
+              onClick={postComment}
+              className="bg-black text-sm text-white px-4 py-2 md:w-[30%] mt-4 md:mt-0"
+            >
               Add Comment
             </button>
           </div>

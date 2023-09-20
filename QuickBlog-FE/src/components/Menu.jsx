@@ -4,9 +4,11 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { URL } from "../utilities/url";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const res = await axios.get(URL + "/api/auth/logout", {
@@ -14,6 +16,7 @@ const Menu = () => {
       });
       setUser(null);
       console.log(res);
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -22,17 +25,17 @@ const Menu = () => {
     <div className="bg-white w-[200px] flex flex-col items-start absolute top-12 md:right-32 right-6 rounded-md p-4 border-4 border-red-200 space-y-4">
       {!user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
-          Login
+          <Link to="/login">Login</Link>
         </h3>
       )}
       {!user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
-          Register
+          <Link to="/register">Register</Link>
         </h3>
       )}
       {user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
-          Profile
+          <Link to={"/profile/" + user._id}>Profile</Link>
         </h3>
       )}{" "}
       {user && (
