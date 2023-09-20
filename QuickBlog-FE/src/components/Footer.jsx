@@ -21,7 +21,7 @@ const Footer = () => {
         </div>
       </div>
       <p className="py-2 pb-2 text-center text-white bg-black">
-        All rights reserved @Quick Blog Market 2023
+        All rights reserved @Quick Blog 2023
       </p>
     </>
   );

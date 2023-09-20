@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+import { IF } from "../utilities/url";
+
 const HomePosts = ({ post }) => {
   return (
     <div className="w-full flex mt-8 space-x-4">
       {/*left*/}
       <div className="w-[35%] h-[200px] flex justify-center items-center">
         <img
-          src={post.photo}
+          src={IF + post.photo}
           alt="No Photo"
           className="h-full w-full object-cover"
         />

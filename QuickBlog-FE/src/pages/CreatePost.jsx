@@ -1,14 +1,23 @@
 // import React from 'react'
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { ImCross } from "react-icons/im";
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import { URL } from "../utilities/url";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
+  const { user } = useContext(UserContext);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
-
+  // console.log(categories);
+  const navigate = useNavigate();
   const addCategory = () => {
     let updatedCategories = [...categories, category];
     setCategory("");
@@ -21,6 +30,45 @@ const CreatePost = () => {
     setCategories(updatedCategories);
   };
 
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    const post = {
+      title,
+      description,
+      username: user.username,
+      userId: user._id,
+      categories: categories,
+    };
+
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      console.log(file, filename);
+      data.append("img", filename);
+      data.append("file", file);
+      post.photo = filename;
+      console.log(data);
+      //img upload
+      try {
+        const imgUpload = await axios.post(URL + "/api/upload", data);
+        console.log(imgUpload.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    //post upload
+    console.log(post);
+    try {
+      const res = await axios.post(URL + "/api/posts/create", post, {
+        withCredentials: true,
+      });
+      navigate("/posts/post/" + res.data._id);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -31,11 +79,13 @@ const CreatePost = () => {
             className="px-4 py-2 outline-none"
             type="text"
             placeholder="enter you'r post title"
+            onChange={(e) => setTitle(e.target.value)}
           />
           <input
             className="px-4 py-2 outline-none"
             type="file"
             placeholder="enter you'r post title"
+            onChange={(e) => setFile(e.target.files[0])}
           />
           <div className="flex flex-col">
             <div className="flex items-center space-x-4 md:space-x-8">
@@ -78,8 +128,12 @@ const CreatePost = () => {
             rows="15"
             className="px-4 py-2 outline-none"
             placeholder="Enter Your Post description"
+            onChange={(e) => setDescription(e.target.value)}
           />
-          <button className="bg-black w-full md:w-[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg">
+          <button
+            onClick={handleCreate}
+            className="bg-black w-full md:w-[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg"
+          >
             Create
           </button>
         </form>
