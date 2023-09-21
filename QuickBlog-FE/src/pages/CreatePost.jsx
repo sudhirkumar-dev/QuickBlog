@@ -51,7 +51,7 @@ const CreatePost = () => {
       //img upload
       try {
         const imgUpload = await axios.post(URL + "/api/upload", data);
-        console.log(imgUpload.data);
+        console.log(imgUpload?.data);
       } catch (err) {
         console.log(err);
       }
@@ -62,7 +62,7 @@ const CreatePost = () => {
       const res = await axios.post(URL + "/api/posts/create", post, {
         withCredentials: true,
       });
-      navigate("/posts/post/" + res.data._id);
+      navigate("/posts/post/" + res?.data._id);
       console.log(res.data);
     } catch (err) {
       console.log(err);
@@ -73,7 +73,7 @@ const CreatePost = () => {
     <div>
       <Navbar />
       <div className="px-6 md:px-[200px] mt-8">
-        <h1 className="font-bold md:text-2xl text-xl mt-8">Update a Post</h1>
+        <h1 className="font-bold md:text-2xl text-xl mt-8">Create a Post</h1>
         <form className="w-full flex flex-col space-y-4 md:space-y-8 mt-4">
           <input
             className="px-4 py-2 outline-none"

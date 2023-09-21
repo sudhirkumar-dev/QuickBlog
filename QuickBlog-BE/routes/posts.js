@@ -67,7 +67,7 @@ router.get("/", async (req, res) => {
   }
 });
 //get post of a particular user
-router.get("user/:userId", async (req, res) => {
+router.get("/user/:userId", async (req, res) => {
   try {
     const posts = await Post.find({ userId: req.params.userId });
     res.status(200).json(posts);

@@ -22,7 +22,7 @@ const Menu = () => {
     }
   };
   return (
-    <div className="bg-white w-[200px] flex flex-col items-start absolute top-12 md:right-32 right-6 rounded-md p-4 border-4 border-red-200 space-y-4">
+    <div className="bg-white w-[200px] z-10 flex flex-col items-start absolute top-12 md:right-32 right-6 rounded-md p-4 border-4 border-red-200 space-y-4">
       {!user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
           <Link to="/login">Login</Link>
@@ -40,12 +40,12 @@ const Menu = () => {
       )}{" "}
       {user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
-          Create
+          <Link to="/register">Register</Link>
         </h3>
       )}{" "}
       {user && (
         <h3 className="text-black text-sm hover:text-red-500 cursor-pointer">
-          My Blogs
+          <Link to={"/myblogs/" + user._id}>My Blogs</Link>
         </h3>
       )}
       {user && (
