@@ -23,7 +23,7 @@ const connectDB = async () => {
   }
 };
 
-const __dirname =path.resolve();
+const __dirname1 =path.resolve();
 
 // middleware
 app.use(express.json());
@@ -35,10 +35,10 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
 
-app.use(express.static(path.join(__dirname, '/QuickBlog-FE/dist')));
+app.use(express.static(path.join(__dirname1, '/QuickBlog-FE/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'QuickBlog-FE', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname1, 'QuickBlog-FE', 'dist', 'index.html'));
 })
 
 
